@@ -30,7 +30,6 @@ static resources_t* resources_init(void)
 static void resources_load(resources_t* r, webview_t* w)
 {
 	assert(strcmp(r->processed_template, "") != 0);
-	puts(r->processed_template);
 	webview_set_html(*w, r->processed_template);
 }
 
