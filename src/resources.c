@@ -11,7 +11,7 @@
 
 const char DIR_CHAR = '~';
 
-static char *get_resource_filename(const char *base_filename)
+static char* get_resource_filename(const char* base_filename)
 {
 	char *result, *prefix;
 	size_t length;
@@ -26,9 +26,9 @@ static char *get_resource_filename(const char *base_filename)
 	return result;
 }
 
-char *resource_read(const char *filename)
+char* resource_read(const char* filename)
 {
-	FILE *fp;
+	FILE* fp;
 	int cap;
 	char read_buf[BUF_CHUNK], *contents, *result, *resource_filename, filename_buf[strlen(filename) + 1];
 	strcpy(filename_buf, filename);
@@ -60,9 +60,9 @@ char *resource_read(const char *filename)
 	return result;
 }
 
-static int get_index(char *string, char c)
+static int get_index(char* string, char c)
 {
-	char *e;
+	char* e;
 
 	if ((e = strchr(string, c)) == NULL)
 		die("strchr");
@@ -70,7 +70,7 @@ static int get_index(char *string, char c)
 	return (int)(e - string);
 }
 
-static char *expand_directive(char *directive_line)
+static char* expand_directive(char* directive_line)
 {
 	char contents_buf[strlen(directive_line) - 3], *direc_name, *direc_params, *expansion_result;
 	int i = 0, j = 0, sep_index;
@@ -115,7 +115,7 @@ static char *expand_directive(char *directive_line)
  * NOTE: These functions may be more suitable to be placed at `src/directives`
  * instead, but, anyways, this is a toy project so :D
  */
-char *resource_template_process(char *template_contents)
+char* resource_template_process(char* template_contents)
 {
 	size_t length = strlen(template_contents) + 1, alloc_cap = BUF_CHUNK;
 	char read_buf[length], *cur_ptr, *result;

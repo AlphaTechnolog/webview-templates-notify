@@ -7,23 +7,23 @@
 #include "directives.h"
 #include "include.h"
 
-directive_params_t *directive_params_init(void)
+directive_params_t* directive_params_init(void)
 {
-	directive_params_t *dp = alloc(sizeof(directive_params_t));
+	directive_params_t* dp = alloc(sizeof(directive_params_t));
 
 	dp->len = 0;
 	dp->cap = 10;
-	dp->value = alloc(sizeof(char *) * dp->cap);
+	dp->value = alloc(sizeof(char*) * dp->cap);
 
 	return dp;
 }
 
-static void param_processor(char *element, void *parameter)
+static void param_processor(char* element, void* parameter)
 {
-	directive_params_t *dp;
-	char *item;
+	directive_params_t* dp;
+	char* item;
 
-	dp = (directive_params_t *)parameter;
+	dp = (directive_params_t*)parameter;
 	assert(dp != NULL);
 
 	item = alloc(strlen(element) + 1);
@@ -36,9 +36,9 @@ static void param_processor(char *element, void *parameter)
 /**
  * example form of query_string is `"hello,world,example"`.
  */
-void directive_params_from_string(directive_params_t *dp, char *query_string)
+void directive_params_from_string(directive_params_t* dp, char* query_string)
 {
-	iterate_string(query_string, ',', param_processor, (void *)dp);
+	iterate_string(query_string, ',', param_processor, (void*)dp);
 }
 
 /**
@@ -46,16 +46,16 @@ void directive_params_from_string(directive_params_t *dp, char *query_string)
  * `free()` will be called on it automatically when `directive_params_deinit()`
  * gets called aswell. See `directive_params_from_string()` for easier usage.
  */
-void directive_params_append(directive_params_t *dp, char *value)
+void directive_params_append(directive_params_t* dp, char* value)
 {
 	dp->value[dp->len++] = value;
 	if (dp->cap >= dp->len) {
 		dp->cap *= 10;
-		dp->value = ralloc(dp->value, sizeof(char *) * dp->cap);
+		dp->value = ralloc(dp->value, sizeof(char*) * dp->cap);
 	}
 }
 
-void directive_params_deinit(directive_params_t *dp)
+void directive_params_deinit(directive_params_t* dp)
 {
 	int i = 0;
 
@@ -68,7 +68,7 @@ void directive_params_deinit(directive_params_t *dp)
 }
 
 /* Add more directives if needed here */
-static directive_type_t directive_type_from_string(char *input)
+static directive_type_t directive_type_from_string(char* input)
 {
 	if (strcmp(input, "INCLUDE") == 0) {
 		return DIRECTIVE_INCLUDE;
@@ -77,11 +77,11 @@ static directive_type_t directive_type_from_string(char *input)
 	return DIRECTIVE_INVALID;
 }
 
-char *directive_resolve_by_name(char *direc_name, char *direc_params)
+char* directive_resolve_by_name(char* direc_name, char* direc_params)
 {
-	directive_params_t *dp;
+	directive_params_t* dp;
 	directive_type_t directive_id;
-	char *resolved_directive;
+	char* resolved_directive;
 
 	dp = directive_params_init();
 	directive_params_from_string(dp, direc_params);

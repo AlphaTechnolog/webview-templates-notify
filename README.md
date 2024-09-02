@@ -38,6 +38,7 @@ Then you can build it this way.
 git clone --recursive https://github.com/AlphaTechnolog/webview-templates-notify
 cd webview-templates-notify
 make
+npm install
 ```
 
 > [!WARNING]

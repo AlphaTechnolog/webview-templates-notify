@@ -8,7 +8,7 @@
 #include "directives.h"
 #include "include.h"
 
-char *directive_include_expand(directive_params_t *dp)
+char* directive_include_expand(directive_params_t* dp)
 {
 	char *cursor, *result;
 	int i, result_cap;
@@ -18,7 +18,7 @@ char *directive_include_expand(directive_params_t *dp)
 	strcpy(result, "");
 
 	for (i = 0, cursor = dp->value[i]; i < dp->len; cursor = dp->value[++i]) {
-		char *resource_contents;
+		char* resource_contents;
 		size_t new_length;
 
 		resource_contents = resource_read(cursor);

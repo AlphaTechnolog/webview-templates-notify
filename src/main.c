@@ -9,15 +9,15 @@
 
 struct resources
 {
-	char *html_contents;
-	char *processed_template;
+	char* html_contents;
+	char* processed_template;
 };
 
 typedef struct resources resources_t;
 
-static resources_t *resources_init(void)
+static resources_t* resources_init(void)
 {
-	resources_t *r;
+	resources_t* r;
 
 	r = alloc(sizeof(resources_t));
 
@@ -27,22 +27,23 @@ static resources_t *resources_init(void)
 	return r;
 }
 
-static void resources_load(resources_t *r, webview_t *w)
+static void resources_load(resources_t* r, webview_t* w)
 {
 	assert(strcmp(r->processed_template, "") != 0);
+	puts(r->processed_template);
 	webview_set_html(*w, r->processed_template);
 }
 
-static void resources_deinit(resources_t *r)
+static void resources_deinit(resources_t* r)
 {
 	free(r->html_contents);
 	free(r->processed_template);
 	free(r);
 }
 
-static void display_impl(const char *id, const char *req, void *arg) { printf("received from client -> %s\n", req); }
+static void display_impl(const char* id, const char* req, void* arg) { printf("received from client -> %s\n", req); }
 
-static void send_notification_impl(const char *id, const char *req, void *arg)
+static void send_notification_impl(const char* id, const char* req, void* arg)
 {
 	/* req comes like ["hello"] so we're gonna ignore the special symbols to obtain the first element */
 	char param_buf[strlen(req) - 3], command_buf[100];
@@ -67,16 +68,16 @@ static void send_notification_impl(const char *id, const char *req, void *arg)
 	memset(command_buf, 0, sizeof(command_buf));
 }
 
-static void load_bindings(webview_t *w)
+static void load_bindings(webview_t* w)
 {
 	webview_bind(*w, "display", display_impl, NULL);
 	webview_bind(*w, "sendNotification", send_notification_impl, NULL);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	webview_t w;
-	resources_t *r;
+	resources_t* r;
 
 	r = resources_init();
 	w = webview_create(0, NULL);

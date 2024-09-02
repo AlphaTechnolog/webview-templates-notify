@@ -4,15 +4,15 @@
 
 #include "utils.h"
 
-void die(const char *prefix)
+void die(const char* prefix)
 {
 	perror(prefix);
 	exit(EXIT_FAILURE);
 }
 
-void *alloc(ssize_t len)
+void* alloc(ssize_t len)
 {
-	void *ptr;
+	void* ptr;
 
 	if (!(ptr = malloc(len)))
 		die("malloc");
@@ -20,9 +20,9 @@ void *alloc(ssize_t len)
 	return ptr;
 }
 
-void *ralloc(void *ptr, ssize_t len)
+void* ralloc(void* ptr, ssize_t len)
 {
-	void *r;
+	void* r;
 
 	if (!(r = realloc(ptr, len)))
 		die("realloc");
@@ -30,9 +30,9 @@ void *ralloc(void *ptr, ssize_t len)
 	return r;
 }
 
-void iterate_string(char *string, char divider, void (*processor)(char *element, void *parameter), void *parameter)
+void iterate_string(char* string, char divider, void (*processor)(char* element, void* parameter), void* parameter)
 {
-	char *ptr;
+	char* ptr;
 
 	ptr = alloc(strlen(string) + 1);
 	strcpy(ptr, string);
