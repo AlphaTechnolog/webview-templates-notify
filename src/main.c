@@ -49,7 +49,8 @@ static void send_notification_impl(const char *id, const char *req, void *arg)
 	int i, j;
 
 	for (i = j = 0; req[i] != '\0'; ++i)
-		if (req[i] != '[' && req[i] != '"' && req[i] != ']')
+		/* also ignoring ' because else it will break the shell command, we could escape it but too much work */
+		if (req[i] != '[' && req[i] != '"' && req[i] != ']' && req[i] != '\'')
 			param_buf[j++] = req[i];
 
 	param_buf[j] = '\0';
