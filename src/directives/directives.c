@@ -36,7 +36,7 @@ static void param_processor(char *element, void *parameter)
 /**
  * example form of query_string is `"hello,world,example"`.
  */
-inline void directive_params_from_string(directive_params_t *dp, char *query_string)
+void directive_params_from_string(directive_params_t *dp, char *query_string)
 {
 	iterate_string(query_string, ',', param_processor, (void *)dp);
 }
@@ -68,7 +68,7 @@ void directive_params_deinit(directive_params_t *dp)
 }
 
 /* Add more directives if needed here */
-static inline directive_type_t directive_type_from_string(char *input)
+static directive_type_t directive_type_from_string(char *input)
 {
 	if (strcmp(input, "INCLUDE") == 0) {
 		return DIRECTIVE_INCLUDE;

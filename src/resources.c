@@ -128,7 +128,7 @@ char *resource_template_process(char *template_contents)
 	for (cur_ptr = strtok(read_buf, "\n"); cur_ptr != NULL; cur_ptr = strtok(NULL, "\n")) {
 		char trimmed_line[strlen(cur_ptr) + 1], *directive_result;
 		int i, j, directive_start, directive_end;
-		size_t line_size;
+		size_t line_size, new_length;
 
 		for (i = 0, j = 0; cur_ptr[i] != '\0'; ++i)
 			if (cur_ptr[i] != ' ')
@@ -141,7 +141,7 @@ char *resource_template_process(char *template_contents)
 		directive_end = trimmed_line[line_size] == DIR_CHAR && trimmed_line[line_size - 1] == DIR_CHAR;
 
 		if (!(directive_start && directive_end)) {
-			size_t new_length = strlen(result) + strlen(cur_ptr) + 1;
+			new_length = strlen(result) + strlen(cur_ptr) + 1;
 			if (new_length > alloc_cap) {
 				alloc_cap = new_length * BUF_CHUNK;
 				result = ralloc(result, alloc_cap);
@@ -154,8 +154,8 @@ char *resource_template_process(char *template_contents)
 		}
 
 		directive_result = expand_directive(trimmed_line);
+		new_length = strlen(result) + strlen(directive_result) + 1;
 
-		size_t new_length = strlen(result) + strlen(directive_result) + 1;
 		if (new_length > alloc_cap) {
 			alloc_cap = new_length * BUF_CHUNK;
 			result = ralloc(result, alloc_cap);
