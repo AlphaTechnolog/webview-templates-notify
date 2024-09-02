@@ -1,7 +1,7 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include <webview/webview.h>
 
 #include "resources.h"
@@ -55,16 +55,16 @@ static void send_notification_impl(const char *id, const char *req, void *arg)
 
 	param_buf[j] = '\0';
 
-        /* we're gonna spawn a notify-send process so one needs to have libnotify installed */
-        strcpy(command_buf, "notify-send '");
-        strncat(command_buf, param_buf, strlen(param_buf) + 1);
-        strcat(command_buf, "'");
+	/* we're gonna spawn a notify-send process so one needs to have libnotify installed */
+	strcpy(command_buf, "notify-send '");
+	strncat(command_buf, param_buf, strlen(param_buf) + 1);
+	strcat(command_buf, "'");
 
-        system(command_buf);
+	system(command_buf);
 
-        /* cleaning up */
-        memset(param_buf, 0, sizeof(param_buf));
-        memset(command_buf, 0, sizeof(command_buf));
+	/* cleaning up */
+	memset(param_buf, 0, sizeof(param_buf));
+	memset(command_buf, 0, sizeof(command_buf));
 }
 
 static void load_bindings(webview_t *w)
